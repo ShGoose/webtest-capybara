@@ -23,7 +23,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         
     - name: Push image
-      uses: docker/push-action@v3
+      uses: docker/build-push-action@v3
       with:
         context: .
         push: false
