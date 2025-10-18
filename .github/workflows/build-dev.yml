@@ -26,5 +26,5 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        push: false
+        push: true
         tags: shogungoose/webtest-capybara:dev-latest
