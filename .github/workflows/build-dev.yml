@@ -27,4 +27,5 @@ jobs:
       with:
         context: .
         push: true
+        platforms: linux/arm64,linux/arm/v7,linux/amd64
         tags: shogungoose/webtest-capybara:dev-latest
