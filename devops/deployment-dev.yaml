@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-server
+  labels: 
+    app: http-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: http-server
+  template:
+    metadata:
+      labels:
+        app: http-server
+    spec:
+      containers:
+        - name: http-server
+          image: shogungoose/webtest-capybara:dev-latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ENV
+              value: "dev"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-server-nodeport
+spec:
+  type: NodePort
+  selector:
+    app: http-server
+  ports:
+    - port: 80
+      targetPort: 8080
+      nodePort: 30080
+          
