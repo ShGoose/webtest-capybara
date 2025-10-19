@@ -2,9 +2,13 @@ name: Build Docker Image (dev)
 
 on:
   push:
-    branches: [ "dev" ]
-  pull_request:
-    branches: [ "dev" ]
+    branches: 
+      - "dev"
+    paths:
+      - "**.go"
+      - "Dockerfile"
+      - 'go.mod'
+      - 'go.sum'
 
 jobs:
 

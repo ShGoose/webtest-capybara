@@ -35,4 +35,6 @@ jobs:
           elif [ "${{ github.ref }}" == "refs/head/prod" ]; then
             echo "=> Deploying prod"
             helm upgrade --install http-server-prod ./Chart -f Chart/values-prod.yaml -m prod --create-namespace
+          else
+            echo "=> No deployment for this branch"
           fi
