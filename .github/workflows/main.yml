@@ -32,7 +32,7 @@ jobs:
     deploy:
         needs:
             - detect
-            - build
+        #    - build
         #if: needs.detect.outputs.go_changed == 'false' || needs.build.result == 'success'
         runs-on: ubunut-latest
         steps:
