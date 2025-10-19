@@ -27,15 +27,15 @@ jobs:
           echo "### Deploying to ${{ github.ref }} ###"
           cd /home/ci/webtest-capybara || exit 1
 
-          git fetch origin ${{ github.ref }}
-          git reset --hard origin/${{ github.ref }}
-          git checkout ${{ github.ref }}
-          git pull origin ${{ github.ref }}
+          git fetch origin ${{ github.ref_name }}
+          git reset --hard origin/${{ github.ref_name }}
+          git checkout ${{ github.ref_name }}
+          git pull origin ${{ github.ref_name }}
 
-          if [ "${{ github.ref }}" == "refs/head/dev" ]; then
+          if [ "${{ github.ref_name }}" == "dev" ]; then
             echo "=> Deploying dev"
             helm upgrade --install http-server-dev ./Chart -f Chart/values-dev.yaml -n dev --create-namespace
-          elif [ "${{ github.ref }}" == "refs/head/prod" ]; then
+          elif [ "${{ github.ref_name }}" == "prod" ]; then
             echo "=> Deploying prod"
             helm upgrade --install http-server-prod ./Chart -f Chart/values-prod.yaml -m prod --create-namespace
           else
