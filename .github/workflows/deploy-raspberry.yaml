@@ -26,8 +26,11 @@ jobs:
         script: |
           echo "### Deploying to ${{ github.ref }} ###"
           cd /home/ci/webtest-capybara || exit 1
-          
-          git pull
+
+          git fetch origin ${{ github.ref }}
+          git reset --hard origin/${{ github.ref }}
+          git checkout ${{ github.ref }}
+          git pull origin ${{ github.ref }}
 
           if [ "${{ github.ref }}" == "refs/head/dev" ]; then
             echo "=> Deploying dev"
