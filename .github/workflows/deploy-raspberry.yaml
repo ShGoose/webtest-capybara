@@ -1,0 +1,38 @@
+name: Deploy chart on raspberry
+
+on:
+  push:
+    branches: [ 
+        "dev",
+        "prod" 
+    ]
+  
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up SSH connection
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script_stop: true
+        script: |
+          echo "### Deploying to ${{ github.ref }} ###"
+          cd /home/ci/webtest-capybara || exit 1
+          
+          git pull
+
+          if [ "${{ github.ref }}" == "refs/head/dev" ]; then
+            echo "=> Deploying dev"
+            helm upgrade --install http-server-dev ./Chart -f Chart/values-dev.yaml -n dev --create-namespace
+          elif [ "${{ github.ref }}" == "refs/head/prod" ]; then
+            echo "=> Deploying prod"
+            helm upgrade --install http-server-prod ./Chart -f Chart/values-prod.yaml -m prod --create-namespace
+          fi

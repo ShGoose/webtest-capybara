@@ -1,0 +1,7 @@
+apiVersion: v2
+name: http-server
+description: webtest-capybara is a simple Go "Hello world" http server
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
