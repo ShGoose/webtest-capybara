@@ -32,12 +32,5 @@ jobs:
           git checkout ${{ github.ref_name }}
           git pull origin ${{ github.ref_name }}
 
-          if [ "${{ github.ref_name }}" == "dev" ]; then
-            echo "=> Deploying dev"
-            helm upgrade --install http-server-dev ./Chart -f Chart/values-dev.yaml -n dev --create-namespace
-          elif [ "${{ github.ref_name }}" == "prod" ]; then
-            echo "=> Deploying prod"
-            helm upgrade --install http-server-prod ./Chart -f Chart/values-prod.yaml -m prod --create-namespace
-          else
-            echo "=> No deployment for this branch"
-          fi
+          echo "=> Deploying ${{ github.ref_name }}"
+          helm upgrade --install http-server-${{ github.ref_name }} ./Chart -f Chart/values-${{ github.ref_name }}.yaml -n ${{ github.ref_name }} --create-namespace
