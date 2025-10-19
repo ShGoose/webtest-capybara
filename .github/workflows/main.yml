@@ -16,24 +16,22 @@ jobs:
             - uses: dorny/paths-filter@v3
               id: filter
               with:
-                filters: |
-                  go:
-                    - '**/*.go'
-                    - 'go.mod'
-                    - 'go.sum'
-                    - 'Dockerfile'
-
+                  filters: |
+                      go:
+                        - '**/*.go'
+                        - 'go.mod'
+                        - 'go.sum'
+                        - 'Dockerfile'
+            - name: Debug show filter output
+              run: echo "filter.go=${{ steps.filter.outputs.go }}"
     build:
         needs: detect
         if: needs.detect.outputs.go_changed == 'true'
         uses: ./.github/workflows/build-dev.yml
 
     deploy:
-        needs: 
+        needs:
             - detect
             - build
-        if: |
-          (needs.detect.outputs.go_changed == 'false') ||
-          (needs.build.result == 'success')
+        if: needs.detect.outputs.go_changed == 'false' || needs.build.result == 'success'
         uses: ./.github/workflows/deploy-raspberry.yml
-    
