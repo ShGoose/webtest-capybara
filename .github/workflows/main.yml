@@ -34,7 +34,7 @@ jobs:
             - detect
         #    - build
         #if: needs.detect.outputs.go_changed == 'false' || needs.build.result == 'success'
-        runs-on: ubunut-latest
+        runs-on: ubuntu-latest
         steps:
             - name: Debug needs
               run: echo "needs.detect.outputs.go_changed=${{ needs.detect.outputs.go_changed }} needs.build.result=${{ needs.build.result }}"
