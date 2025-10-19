@@ -1,11 +1,7 @@
-name: Deploy chart on raspberry
+name: Reusable Deploy
 
 on:
-  push:
-    branches: [ 
-        "dev",
-        "prod" 
-    ]
+  workflow_call:
   
 jobs:
 

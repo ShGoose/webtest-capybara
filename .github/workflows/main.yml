@@ -1,0 +1,39 @@
+name: CI/CD
+
+on:
+    push:
+        branches:
+            - dev
+            - main
+
+jobs:
+    detect:
+        runs-on: ubuntu-latest
+        outputs:
+            go_changed: ${{ steps.filter.outputs.go }}
+        steps:
+            - uses: actions/checkout@v4
+            - uses: dorny/paths-filter@v3
+              id: filter
+              with:
+                filters: |
+                  go:
+                    - '**/*.go'
+                    - 'go.mod'
+                    - 'go.sum'
+                    - 'Dockerfile'
+
+    build:
+        needs: detect
+        if: needs.detect.outputs.go_changed == 'true'
+        uses: ./.github/workflows/build-dev.yml
+
+    deploy:
+        needs: 
+            - detect
+            - build
+        if: |
+          (needs.detect.outputs.go_changed == 'false') ||
+          (needs.build.result == 'success')
+        uses: ./.github/workflows/deploy-raspberry.yml
+    

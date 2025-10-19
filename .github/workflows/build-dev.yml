@@ -1,19 +1,13 @@
-name: Build Docker Image (dev)
+name: Reusable Build
 
 on:
-  push:
-    branches: 
-      - "dev"
-    paths:
-      - "**.go"
-      - "Dockerfile"
-      - 'go.mod'
-      - 'go.sum'
+  workflow_call:
 
 jobs:
 
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
