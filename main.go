@@ -19,7 +19,7 @@ func sum(a, b int) string {
 }
 
 func thirdHandler(w http.ResponseWriter, r *http.Request) {
-	message := sum(10, 11)
+	message := sum(10, 12)
 	fmt.Fprintln(w, message)
 }
 
