@@ -5,6 +5,11 @@ on:
     branches:
       - dev
       - prod
+    paths-ignore:
+      - '**/*.go'
+      - 'go.mod'
+      - 'go.sum'
+      - 'Dockerfile'
 
   workflow_run:
     workflows:
