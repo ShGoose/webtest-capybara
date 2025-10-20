@@ -32,10 +32,10 @@ jobs:
     deploy:
         needs:
             - detect
-            - build
-        if: needs.detect.outputs.go_changed != 'true' || needs.build.result == 'success'
+            # - build
+        # if: needs.detect.outputs.go_changed != 'true' || needs.build.result == 'success'
         runs-on: ubuntu-latest
         steps:
             - name: Debug needs
-              run: echo "needs.detect.outputs.go_changed=${{ needs.detect.outputs.go_changed }} needs.build.result=${{ needs.build.result }}"
+              run: echo "needs.detect.outputs.go_changed=${{ needs.detect.outputs.go_changed }}"
         #uses: ./.github/workflows/deploy-raspberry.yml
