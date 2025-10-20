@@ -1,4 +1,4 @@
-name: Reusable Deploy
+name: Deploy RaspberryPi
 
 on:
   push:

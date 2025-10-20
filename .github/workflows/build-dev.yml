@@ -1,10 +1,9 @@
-name: Reusable Build
+name: Build dev
 
 on:
   push:
     branches:
       - dev
-      - prod
     paths:
       - '**.go'
       - 'go.mod'
