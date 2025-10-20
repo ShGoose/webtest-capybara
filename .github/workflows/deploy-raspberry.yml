@@ -13,7 +13,7 @@ on:
 
   workflow_run:
     workflows:
-      - "build"
+      - "Build dev"
     types:
       - completed
   
