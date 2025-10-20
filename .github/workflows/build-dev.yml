@@ -1,7 +1,15 @@
 name: Reusable Build
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - dev
+      - prod
+    paths:
+      - '**.go'
+      - 'go.mod'
+      - 'go.sum'
+      - 'Dockerfile'
 
 jobs:
 
