@@ -33,7 +33,7 @@ jobs:
         needs:
             - detect
             - build
-        if: needs.detect.outputs.go_changed == false || needs.build.result == 'success'
+        if: needs.detect.outputs.go_changed != 'true' || needs.build.result == 'success'
         runs-on: ubuntu-latest
         steps:
             - name: Debug needs
